@@ -1,10 +1,11 @@
 programa {
  inclua biblioteca Util
   funcao inicio() {
-    inteiro vidaP = 100, vidaB = 250, dado, escolher
+    inteiro vidaP = 100, vidaB = 250, dado, escolher 
     cadeia mochila [4]
     real moedas = 130.50
     logico morte = verdadeiro == (vidaP == 0)
+    logico trabalho = verdadeiro == ("Sim" ou "sim")
 
     cadeia nome, dialogo
 
@@ -33,10 +34,10 @@ programa {
     escreva ("Você consegue, aqui estão suas opções e seu dinheiro atual:")
     leia (dialogo)
 
-    mochila [0] = "Não quero fazer nada (encerra o jogo)"
+    mochila [0] = "Não quero fazer nada, eu desisto (encerra o jogo)"
     mochila [1] = "Terapia (ataca o inimigo), custa 15 moedas"
-    mochila [2] = "Conversar com alguém (instabiliza o inimigo), grátis"
-    mochila [3] = "Tomar remédios (te cura), custa 30.50 moedas"
+    mochila [2] = "Conversar com alguém (ataca o inimigo, menos dano que terapia), grátis"
+    mochila [3] = "Tomar remédios (te cura), custa 18.50 moedas"
     
     faca {
       se (morte == falso)
@@ -47,30 +48,84 @@ programa {
       escreva ("\nO que quer fazer? ")
       leia (escolher)
 
-      se (escolher == 1 e moedas > 15.0){
+      se (escolher == 1 e moedas >= 15.0) {
         dado = Util.sorteia (1,20)
         moedas -= 15.0
         escreva ("\nA terapia é necessária para todo mundo, que bom que você decidiu fazer isso\n")
-        escreva ("\n", dado)
+        escreva ("\nVocê tirou ", dado)
 
       se (dado >= 10 e dado <= 15 ){
-        escreva ("Tudo no seu tempo. ")
+        escreva ("\nTudo no seu tempo. ")
         vidaB -= 25
         vidaP -= 5
 
       }
       senao se (dado > 15){
-        escreva ("Você fez um grande progesso, parabéns!\n")
+        escreva ("\nVocê fez um grande progresso, parabéns!\n")
         vidaB -= 40
       }
       senao se (dado < 10 ) {
-        escreva ("Essa sessão não foi boa.\n")
+        escreva ("\nEssa sessão não foi boa.\n")
         vidaP -= 30
         vidaB -= 5
       }
-      escreva (vidaP, "\n", vidaB)
+      }
+      
+      senao se (escolher == 2){
+        dado = Util.sorteia (1,20)
+        escreva ("Conversar com alguém sempre é bom!")
+        escreva ("\n Você tirou ",dado)
+
+        se (dado >= 10 e dado <= 15 ){
+          escreva ("\nAmigos são incríveis. ")
+          vidaB -= 15
+
+      }
+      senao se (dado > 15){
+        escreva ("\nEssa pessoa é um anjo na Terra!\n")
+        vidaB -= 25
+      }
+      senao se (dado < 10 ) {
+        escreva ("\nEla tornou tudo sobre ela.\n")
+        vidaP -= 5
+      }
+      
+      }
+
+            se (escolher == 3 e moedas >= 18.50) {
+        dado = Util.sorteia (1,20)
+        moedas -= 18.50
+        escreva ("\nUtilize os remédios na dose correta!\n")
+        escreva ("\nVocê tirou ", dado)
+
+      se (dado >= 10 e dado <= 15 ){
+        escreva ("\nTudo no seu tempo.\n")
+        vidaB -= 25
+        vidaP -= 5
+
+      }
+      senao se (dado > 15){
+        escreva ("\nVocê fez um grande progresso, parabéns!\n")
+        vidaB -= 40
+      }
+      senao se (dado < 10 ) {
+        escreva ("\nEssa sessão não foi boa.\n")
+        vidaP -= 30
+        vidaB -= 5
+      }
       } 
+
+      escreva (vidaP, "\n", vidaB)
      }enquanto (escolher != 0 e morte == falso)
+
+     enquanto (vidaB <= 100 e vidaP >= 40){
+      escreva ("Antes de aceitar, saiba que haverão consequências. Responda com sim ou não. Você quer moedas?")
+      leia (trabalho)
+      se (trabalho == verdadeiro){
+        vidaP -= 20
+        moedas += 50.0
+      }
+      
+     }
     } 
    }
- }
