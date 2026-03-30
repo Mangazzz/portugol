@@ -1,5 +1,5 @@
-rograma {
-  inclua biblioteca Util
+programa {
+ inclua biblioteca Util
   funcao inicio() {
     inteiro vidaP = 100, vidaB = 250, dado, escolher
     cadeia mochila [4]
@@ -46,13 +46,12 @@ rograma {
     }
       escreva ("\nO que quer fazer? ")
       leia (escolher)
-    } enquanto (escolher == 0)
 
-    se (escolher == 1 e moedas > 15.0){
-      dado = Util.sorteia (1,20)
-      moedas -= 15.0
-      escreva ("\nA terapia é necessária para todo mundo, que bom que você decidiu fazer isso\n")
-      escreva ("\n", dado)
+      se (escolher == 1 e moedas > 15.0){
+        dado = Util.sorteia (1,20)
+        moedas -= 15.0
+        escreva ("\nA terapia é necessária para todo mundo, que bom que você decidiu fazer isso\n")
+        escreva ("\n", dado)
 
       se (dado >= 10 e dado <= 15 ){
         escreva ("Tudo no seu tempo. ")
@@ -70,6 +69,8 @@ rograma {
         vidaB -= 5
       }
       escreva (vidaP, "\n", vidaB)
-    }
-  }
-}
+      } 
+     }enquanto (escolher != 0 e morte == falso)
+    } 
+   }
+ }
