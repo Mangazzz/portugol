@@ -1,0 +1,75 @@
+rograma {
+  inclua biblioteca Util
+  funcao inicio() {
+    inteiro vidaP = 100, vidaB = 250, dado, escolher
+    cadeia mochila [4]
+    real moedas = 130.50
+    logico morte = verdadeiro == (vidaP == 0)
+
+    cadeia nome, dialogo
+
+    // DIÁLOGO, IGNORE
+    escreva ("Guia \nProsseguir os diálogos: enter \nQuando ver uma interrogação, se atente a pergunta e responda\nO sistema é uma rolagem de D20 que decide se a ação é bem sucedida ou não\n\n")
+
+    escreva ("Você falhou.")
+    leia (dialogo)
+
+    escreva ("\nIsso, provavelmente, não é sua culpa, mas ninguém liga para isso.")
+    leia (dialogo)
+
+    escreva ("\nPouco falamos das dores, qual o seu nome? ")
+    leia (nome)
+    escreva (nome)
+    leia (dialogo)
+
+    escreva  ("\nVocê irá lutar contra si mesmo(a), não é confortável, mas é o melhor caminho.")
+    leia (dialogo)
+
+    escreva ("\nHá muitos anos você ignora tudo, internamente ou externamente, mas agora já não é mais hora de fazer isso, agora você merece um final feliz.\n")
+    leia (dialogo)
+
+     // DIÁLOGO, IGNORE
+
+    escreva ("Você consegue, aqui estão suas opções e seu dinheiro atual:")
+    leia (dialogo)
+
+    mochila [0] = "Não quero fazer nada (encerra o jogo)"
+    mochila [1] = "Terapia (ataca o inimigo), custa 15 moedas"
+    mochila [2] = "Conversar com alguém (instabiliza o inimigo), grátis"
+    mochila [3] = "Tomar remédios (te cura), custa 30.50 moedas"
+    
+    faca {
+      se (morte == falso)
+      escreva ("\n\nVocê tem " ,moedas, " na sua conta\n")
+      para (inteiro i = 0; i <= 3; i++ ) {
+      escreva (i, ":" , mochila [i], "\n")
+    }
+      escreva ("\nO que quer fazer? ")
+      leia (escolher)
+    } enquanto (escolher == 0)
+
+    se (escolher == 1 e moedas > 15.0){
+      dado = Util.sorteia (1,20)
+      moedas -= 15.0
+      escreva ("\nA terapia é necessária para todo mundo, que bom que você decidiu fazer isso\n")
+      escreva ("\n", dado)
+
+      se (dado >= 10 e dado <= 15 ){
+        escreva ("Tudo no seu tempo. ")
+        vidaB -= 25
+        vidaP -= 5
+
+      }
+      senao se (dado > 15){
+        escreva ("Você fez um grande progesso, parabéns!\n")
+        vidaB -= 40
+      }
+      senao se (dado < 10 ) {
+        escreva ("Essa sessão não foi boa.\n")
+        vidaP -= 30
+        vidaB -= 5
+      }
+      escreva (vidaP, "\n", vidaB)
+    }
+  }
+}
